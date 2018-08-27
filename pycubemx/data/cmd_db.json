@@ -1,0 +1,1422 @@
+{
+  "log": {
+    "native.log": false,
+    "native.response": false,
+    "native.exec": false,
+    "native.exec": false
+  },
+  "command_db_version" : {
+    "author" : "Brett Foster <fosterb@edgeandvertex.org>",
+    "version" : "0.1",
+    "details" : "First pass - auto detected."
+  },
+  "cube": {
+    "schema": {
+      "type": "Namespace",
+      "name": "",
+      "oname": "",
+      "help": null,
+      "children": [
+        {
+          "type": "Namespace",
+          "name": "get",
+          "oname": "get",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "modes",
+              "oname": "modes",
+              "help": " get a list of all leaf modes in a peripheral",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "peripheral_regular_expression_match",
+                  "oname": "peripheral regular expression match",
+                  "help": "(.* for all)"
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "mapped",
+              "oname": "mapped",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "modes",
+                  "oname": "modes",
+                  "help": " get a list of set modes in a peripheral",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "peripheral_regular_expression_match",
+                      "oname": "peripheral regular expression match",
+                      "help": "(.* for all)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "mode",
+              "oname": "mode",
+              "help": " get mode(s) for a given peripheral",
+              "args": [
+                {
+                  "type": "Enum",
+                  "name": "unnamed",
+                  "oname": "unnamed",
+                  "help": null,
+                  "options": [
+                    "active",
+                    "available",
+                    "all"
+                  ]
+                },
+                {
+                  "type": "String",
+                  "name": "peripheral",
+                  "oname": "peripheral",
+                  "help": "(.* for all)"
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "mode_param_list",
+              "oname": "mode_param_list",
+              "help": " get parameter(s) for a given active mode",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "peripheral",
+                  "oname": "peripheral",
+                  "help": null
+                },
+                {
+                  "type": "String",
+                  "name": "active_mode",
+                  "oname": "active_mode",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "mode_param_possvalue",
+              "oname": "mode_param_possvalue",
+              "help": " get parameter possible value(s) for a given active mode parameter",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "peripheral",
+                  "oname": "peripheral",
+                  "help": null
+                },
+                {
+                  "type": "String",
+                  "name": "active_mode",
+                  "oname": "active_mode",
+                  "help": null
+                },
+                {
+                  "type": "String",
+                  "name": "parameter",
+                  "oname": "parameter",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "mode_param_pattern",
+              "oname": "mode_param_pattern",
+              "help": " get all pattern parameter(s) for a given active mode",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "peripheral",
+                  "oname": "peripheral",
+                  "help": null
+                },
+                {
+                  "type": "String",
+                  "name": "active_mode",
+                  "oname": "active_mode",
+                  "help": null
+                },
+                {
+                  "type": "String",
+                  "name": "pattern",
+                  "oname": "pattern",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "available",
+              "oname": "available",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "modes",
+                  "oname": "modes",
+                  "help": " get a list of available modes in a peripheral",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "peripheral_regular_expression_match",
+                      "oname": "peripheral regular expression match",
+                      "help": "(.* for all)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "signal",
+              "oname": "signal",
+              "help": " get the signal set on a pin",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "pin",
+                  "oname": "pin",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "pinout",
+              "oname": "pinout",
+              "help": " get the mcu pinout",
+              "args": []
+            },
+            {
+              "type": "Namespace",
+              "name": "gpio",
+              "oname": "gpio",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "parameters",
+                  "oname": "parameters",
+                  "help": " get the gpio parameter value on a pin",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "matching_pin",
+                      "oname": "matching pin",
+                      "help": null
+                    },
+                    {
+                      "type": "String",
+                      "name": "matching_parameter",
+                      "oname": "matching parameter",
+                      "help": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "ip",
+              "oname": "ip",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "parameters",
+                  "oname": "parameters",
+                  "help": " get the ip parameter value",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "matching_ip",
+                      "oname": "matching ip",
+                      "help": null
+                    },
+                    {
+                      "type": "String",
+                      "name": "param_name",
+                      "oname": "param name",
+                      "help": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "sub-mode-state",
+              "oname": "sub-mode-state",
+              "help": null,
+              "args": [
+                {
+                  "type": "String",
+                  "name": "Periph",
+                  "oname": "Periph",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "available-analog-signals",
+              "oname": "available-analog-signals",
+              "help": null,
+              "args": [
+                {
+                  "type": "String",
+                  "name": "pin_name",
+                  "oname": "pin name",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "sub-modes",
+              "oname": "sub-modes",
+              "help": null,
+              "args": [
+                {
+                  "type": "String",
+                  "name": "Periph",
+                  "oname": "Periph",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "mcu",
+              "oname": "mcu",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "name",
+                  "oname": "name",
+                  "help": null,
+                  "args": []
+                },
+                {
+                  "type": "Caller",
+                  "name": "package",
+                  "oname": "package",
+                  "help": null,
+                  "args": []
+                },
+                {
+                  "type": "Caller",
+                  "name": "peripherals",
+                  "oname": "peripherals",
+                  "help": null,
+                  "args": []
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "functions",
+              "oname": "functions",
+              "help": " list all possible functions of a pin",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "pin_regex",
+                  "oname": "pin regex",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "possible",
+              "oname": "possible",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "remaps",
+                  "oname": "remaps",
+                  "help": " list all possible remaps of a matching signal",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "signal_regex",
+                      "oname": "signal regex",
+                      "help": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "version",
+              "oname": "version",
+              "help": "  print current version",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "tpl_path",
+              "oname": "tpl_path",
+              "help": "get your template source path",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "dest_path",
+              "oname": "dest_path",
+              "help": "get your template destination path",
+              "args": []
+            }
+          ]
+        },
+        {
+          "type": "Caller",
+          "name": "log",
+          "oname": "log",
+          "help": null,
+          "args": [
+            {
+              "type": "String",
+              "name": "level",
+              "oname": "level",
+              "help": null
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "set",
+          "oname": "set",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "mode",
+              "oname": "mode",
+              "help": " set a mode in a peripheral",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "Periph",
+                  "oname": "Periph",
+                  "help": null
+                },
+                {
+                  "type": "String",
+                  "name": "Mode_Name",
+                  "oname": "Mode Name",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "username",
+              "oname": "username",
+              "help": " set a User name for a peripheral",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "Periph",
+                  "oname": "Periph",
+                  "help": null
+                },
+                {
+                  "type": "String",
+                  "name": "User_Name",
+                  "oname": "User Name",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "pin",
+              "oname": "pin",
+              "help": null,
+              "args": [
+                {
+                  "type": "String",
+                  "name": "pin_name",
+                  "oname": "pin name",
+                  "help": null
+                },
+                {
+                  "type": "String",
+                  "name": "signal_name",
+                  "oname": "signal name",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "gpio",
+              "oname": "gpio",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "parameters",
+                  "oname": "parameters",
+                  "help": " set the gpio parameter value on a pin",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "matching_pin",
+                      "oname": "matching pin",
+                      "help": null
+                    },
+                    {
+                      "type": "String",
+                      "name": "param_name",
+                      "oname": "param name",
+                      "help": null
+                    },
+                    {
+                      "type": "String",
+                      "name": "param_value",
+                      "oname": "param value",
+                      "help": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "ip",
+              "oname": "ip",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "parameters",
+                  "oname": "parameters",
+                  "help": " set the ip parameter value",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "matching_ip",
+                      "oname": "matching ip",
+                      "help": null
+                    },
+                    {
+                      "type": "String",
+                      "name": "param_name",
+                      "oname": "param name",
+                      "help": null
+                    },
+                    {
+                      "type": "String",
+                      "name": "param_value",
+                      "oname": "param value",
+                      "help": null
+                    }
+                  ]
+                },
+                {
+                  "type": "Caller",
+                  "name": "no_ui_warning",
+                  "oname": "no_ui_warning",
+                  "help": " disable warnings in ip ui",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "matching_ip",
+                      "oname": "matching ip",
+                      "help": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "noparam",
+              "oname": "noparam",
+              "help": null,
+              "args": [
+                {
+                  "type": "String",
+                  "name": "ip_regexp",
+                  "oname": "ip regexp",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "userconst",
+              "oname": "userconst",
+              "help": " add or update a user constant with new value",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "userconstant",
+                  "oname": "userconstant",
+                  "help": null
+                },
+                {
+                  "type": "String",
+                  "name": "value",
+                  "oname": "value",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "tpl_path",
+              "oname": "tpl_path",
+              "help": "set your template source path",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "path",
+                  "oname": "path",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "dest_path",
+              "oname": "dest_path",
+              "help": "set your template destination path",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "path",
+                  "oname": "path",
+                  "help": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "import",
+          "oname": "import",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "hackmxdb",
+              "oname": "hackmxdb",
+              "help": "  hackmxdb import <pin name> <signal name>: will hack the MxDb by deleting all Alternates Pins for <signal name> except for <pin name>",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "openioc",
+              "oname": "openioc",
+              "help": "  load import ioc file",
+              "args": []
+            },
+            {
+              "type": "Namespace",
+              "name": "set",
+              "oname": "set",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "Option",
+                  "oname": "Option",
+                  "help": "  set manual import option",
+                  "args": []
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "try",
+              "oname": "try",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "import",
+                  "oname": "import",
+                  "help": "  try import",
+                  "args": []
+                },
+                {
+                  "type": "Caller",
+                  "name": "import_and_log",
+                  "oname": "import_and_log",
+                  "help": "  import ioc mcu to current mcu, then write the report",
+                  "args": []
+                },
+                {
+                  "type": "Namespace",
+                  "name": "auto",
+                  "oname": "auto",
+                  "help": null,
+                  "children": [
+                    {
+                      "type": "Caller",
+                      "name": "import",
+                      "oname": "import",
+                      "help": "  import ioc mcu to current mcu, then write the report",
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "GPIOconstraint",
+              "oname": "GPIOconstraint",
+              "help": "  constraints on GPIO <constrainedGPIO>: will set the signal from pin origin to pin target",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "channelconstraint",
+              "oname": "channelconstraint",
+              "help": "  constraints on channel <IPOrigin> <channelOrigin> <IPDestination> <channelDestination>: change channel for described IPs",
+              "args": []
+            },
+            {
+              "type": "Namespace",
+              "name": "get",
+              "oname": "get",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "report",
+                  "oname": "report",
+                  "help": "  get import report",
+                  "args": []
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "add_compatibility_rule",
+              "oname": "add_compatibility_rule",
+              "help": "  hack_rules <file>: open saved config",
+              "args": []
+            }
+          ]
+        },
+        {
+          "type": "Caller",
+          "name": "load",
+          "oname": "load",
+          "help": " open mcu xml file",
+          "args": [
+            {
+              "type": "String",
+              "name": "mcu",
+              "oname": "mcu",
+              "help": null
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "reset",
+          "oname": "reset",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "pin",
+              "oname": "pin",
+              "help": null,
+              "args": [
+                {
+                  "type": "String",
+                  "name": "pin_name",
+                  "oname": "pin name",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "signal",
+              "oname": "signal",
+              "help": null,
+              "args": [
+                {
+                  "type": "String",
+                  "name": "signal_name",
+                  "oname": "signal name",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "pin-signal",
+              "oname": "pin-signal",
+              "help": "  reset pin <pin name> <signal name>",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "mode",
+              "oname": "mode",
+              "help": " reset a mode in a peripheral",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "Periph",
+                  "oname": "Periph",
+                  "help": null
+                },
+                {
+                  "type": "String",
+                  "name": "Mode_Name",
+                  "oname": "Mode Name",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "noparam",
+              "oname": "noparam",
+              "help": null,
+              "args": [
+                {
+                  "type": "String",
+                  "name": "ip_regexp",
+                  "oname": "ip regexp",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "userconst",
+              "oname": "userconst",
+              "help": " remove a user constant. No error reporting",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "userconstant",
+                  "oname": "userconstant",
+                  "help": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Caller",
+          "name": "clearpinout",
+          "oname": "clearpinout",
+          "help": " remove all the pin mapping",
+          "args": []
+        },
+        {
+          "type": "Namespace",
+          "name": "possible_value",
+          "oname": "possible_value",
+          "help": null,
+          "children": [
+            {
+              "type": "Namespace",
+              "name": "ip",
+              "oname": "ip",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "parameters",
+                  "oname": "parameters",
+                  "help": " is ip parameter value allowed?",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "matching_ip",
+                      "oname": "matching ip",
+                      "help": null
+                    },
+                    {
+                      "type": "String",
+                      "name": "param_name",
+                      "oname": "param name",
+                      "help": null
+                    },
+                    {
+                      "type": "String",
+                      "name": "param_value",
+                      "oname": "param value",
+                      "help": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "not_a_possible_value",
+          "oname": "not_a_possible_value",
+          "help": null,
+          "children": [
+            {
+              "type": "Namespace",
+              "name": "ip",
+              "oname": "ip",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "parameters",
+                  "oname": "parameters",
+                  "help": " is ip parameter value not allowed?",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "matching_ip",
+                      "oname": "matching ip",
+                      "help": null
+                    },
+                    {
+                      "type": "String",
+                      "name": "param_name",
+                      "oname": "param name",
+                      "help": null
+                    },
+                    {
+                      "type": "String",
+                      "name": "param_value",
+                      "oname": "param value",
+                      "help": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "add",
+          "oname": "add",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "template_dir",
+              "oname": "template_dir",
+              "help": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "check",
+          "oname": "check",
+          "help": null,
+          "children": [
+            {
+              "type": "Namespace",
+              "name": "mcu",
+              "oname": "mcu",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "modes",
+                  "oname": "modes",
+                  "help": " check modes for current mcu",
+                  "args": []
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "mode",
+              "oname": "mode",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "enabled",
+                  "oname": "enabled",
+                  "help": "  Check mode enable <Periph> <Mode Name>: check mode enability",
+                  "args": []
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "mcus",
+              "oname": "mcus",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "xml",
+                  "oname": "xml",
+                  "help": "  open all the mcus",
+                  "args": []
+                },
+                {
+                  "type": "Caller",
+                  "name": "modes",
+                  "oname": "modes",
+                  "help": "  check all modes for all mcus",
+                  "args": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "csv",
+          "oname": "csv",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "pinout",
+              "oname": "pinout",
+              "help": null,
+              "args": [
+                {
+                  "type": "String",
+                  "name": "file",
+                  "oname": "file",
+                  "help": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "generate",
+          "oname": "generate",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "code",
+              "oname": "code",
+              "help": null,
+              "args": [
+                {
+                  "type": "String",
+                  "name": "path",
+                  "oname": "path",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "all_code_in_main",
+              "oname": "all_code_in_main",
+              "help": "  generate all code in main.c",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "one_file_per_ip",
+              "oname": "one_file_per_ip",
+              "help": "  generate one file per ip",
+              "args": []
+            }
+          ]
+        },
+        {
+          "type": "Caller",
+          "name": "tinyload",
+          "oname": "tinyload",
+          "help": " load mcu for pinout only",
+          "args": [
+            {
+              "type": "String",
+              "name": "mcu",
+              "oname": "mcu",
+              "help": null
+            }
+          ]
+        },
+        {
+          "type": "Caller",
+          "name": "waitclock",
+          "oname": "waitclock",
+          "help": "  Wait for a delay in seconds until clock has finished its initialization",
+          "args": []
+        },
+        {
+          "type": "Namespace",
+          "name": "export",
+          "oname": "export",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "script",
+              "oname": "script",
+              "help": "  export configAsScript <outputscript>",
+              "args": []
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "pinout",
+          "oname": "pinout",
+          "help": null,
+          "children": [
+            {
+              "type": "Namespace",
+              "name": "check",
+              "oname": "check",
+              "help": null,
+              "children": [
+                {
+                  "type": "Namespace",
+                  "name": "keep",
+                  "oname": "keep",
+                  "help": null,
+                  "children": [
+                    {
+                      "type": "Namespace",
+                      "name": "user",
+                      "oname": "user",
+                      "help": null,
+                      "children": [
+                        {
+                          "type": "Caller",
+                          "name": "placement",
+                          "oname": "placement",
+                          "help": null,
+                          "args": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "uncheck",
+              "oname": "uncheck",
+              "help": null,
+              "children": [
+                {
+                  "type": "Namespace",
+                  "name": "keep",
+                  "oname": "keep",
+                  "help": null,
+                  "children": [
+                    {
+                      "type": "Namespace",
+                      "name": "user",
+                      "oname": "user",
+                      "help": null,
+                      "children": [
+                        {
+                          "type": "Caller",
+                          "name": "placement",
+                          "oname": "placement",
+                          "help": null,
+                          "args": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "project",
+          "oname": "project",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "couplefilesbyip",
+              "oname": "couplefilesbyip",
+              "help": " Peripheral initialization done in main or in separate IPs files.",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "generateunderroot",
+              "oname": "generateunderroot",
+              "help": " Project files generated under project root directory instead of specific subdir .",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "generate",
+              "oname": "generate",
+              "help": " generates full project",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "toolchain",
+              "oname": "toolchain",
+              "help": " set toolchain",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "toolchain",
+                  "oname": "toolchain",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "toolchainlocation",
+              "oname": "toolchainlocation",
+              "help": " set toolchainlocation",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "toolchain_location",
+                  "oname": "toolchain location",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "set",
+              "oname": "set",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "heapsize",
+                  "oname": "heapsize",
+                  "help": " set minimum heap size",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "heapsize",
+                      "oname": "heapsize",
+                      "help": null
+                    }
+                  ]
+                },
+                {
+                  "type": "Caller",
+                  "name": "stacksize",
+                  "oname": "stacksize",
+                  "help": " set minimum stack size",
+                  "args": [
+                    {
+                      "type": "String",
+                      "name": "stacksize",
+                      "oname": "stacksize",
+                      "help": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Namespace",
+              "name": "get",
+              "oname": "get",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "heapsize",
+                  "oname": "heapsize",
+                  "help": " get minimum heap size",
+                  "args": []
+                },
+                {
+                  "type": "Caller",
+                  "name": "stacksize",
+                  "oname": "stacksize",
+                  "help": " get minimum stack size",
+                  "args": []
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "path",
+              "oname": "path",
+              "help": " set project path",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "path",
+                  "oname": "path",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "name",
+              "oname": "name",
+              "help": " set project name",
+              "args": [
+                {
+                  "type": "String",
+                  "name": "name",
+                  "oname": "name",
+                  "help": null
+                }
+              ]
+            },
+            {
+              "type": "Caller",
+              "name": "import",
+              "oname": "import",
+              "help": "  import project setting parameters",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "save",
+              "oname": "save",
+              "help": "  save project setting",
+              "args": []
+            }
+          ]
+        },
+        {
+          "type": "Caller",
+          "name": "setDriver",
+          "oname": "setDriver",
+          "help": "  set Ip driver",
+          "args": []
+        },
+        {
+          "type": "Namespace",
+          "name": "disable",
+          "oname": "disable",
+          "help": null,
+          "children": [
+            {
+              "type": "Namespace",
+              "name": "project",
+              "oname": "project",
+              "help": null,
+              "children": [
+                {
+                  "type": "Caller",
+                  "name": "generate",
+                  "oname": "generate",
+                  "help": "  project generate true/false",
+                  "args": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "clock",
+          "oname": "clock",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "resolution",
+              "oname": "resolution",
+              "help": "  resolve clock issues",
+              "args": []
+            }
+          ]
+        },
+        {
+          "type": "Namespace",
+          "name": "config",
+          "oname": "config",
+          "help": null,
+          "children": [
+            {
+              "type": "Caller",
+              "name": "load",
+              "oname": "load",
+              "help": "  load <file>: open saved config",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "save",
+              "oname": "save",
+              "help": "  save: save config",
+              "args": []
+            },
+            {
+              "type": "Caller",
+              "name": "saveas",
+              "oname": "saveas",
+              "help": "  save <file>: save config",
+              "args": []
+            }
+          ]
+        },
+        {
+          "type": "Caller",
+          "name": "exit",
+          "oname": "exit",
+          "help": " exit",
+          "args": []
+        },
+        {
+          "type": "Caller",
+          "name": "script",
+          "oname": "script",
+          "help": " execute all command in file",
+          "args": [
+            {
+              "type": "String",
+              "name": "file",
+              "oname": "file",
+              "help": null
+            }
+          ]
+        },
+        {
+          "type": "Caller",
+          "name": "help",
+          "oname": "help",
+          "help": " Get usage information.",
+          "args": [
+          ]
+        }
+      ]
+    }
+  }
+}
