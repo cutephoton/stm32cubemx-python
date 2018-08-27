@@ -25,3 +25,19 @@ BTW, to access interactive mode manually:
 `STM32CUBEMX -i`
 
 Alright!
+
+## Example Usage
+
+See `test.py` for an example.
+
+```
+from pycubemx import MxConnection, Config, GetBaseConfig
+
+c = GetBaseConfig ()
+c.loadFile("cubemx-paths-local.json")
+print("Command DB Version: " + str(c.commandDbVersionInfo))
+with MxConnection(c) as x:
+    help = x.help()
+    for i in help:
+        print("--> " + i)
+```

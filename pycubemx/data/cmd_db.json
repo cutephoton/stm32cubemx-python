@@ -1369,7 +1369,14 @@
               "name": "load",
               "oname": "load",
               "help": "  load <file>: open saved config",
-              "args": []
+              "args": [
+                  {
+                    "type": "String",
+                    "name": "path",
+                    "oname": "path",
+                    "help": null
+                  }
+              ]
             },
             {
               "type": "Caller",
@@ -1383,7 +1390,14 @@
               "name": "saveas",
               "oname": "saveas",
               "help": "  save <file>: save config",
-              "args": []
+              "args": [
+                  {
+                    "type": "String",
+                    "name": "path",
+                    "oname": "path",
+                    "help": null
+                  }
+              ]
             }
           ]
         },
