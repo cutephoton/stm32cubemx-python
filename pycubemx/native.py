@@ -39,7 +39,7 @@ class MxStatus (Enum):
         return (self == MxStatus.MxOK)
 
 class Coder (object):
-    _RE_END = re.compile("^(\d+)\s+(OK|KO)\s*$")
+    _RE_END = re.compile("^.*(\d+)\s+(OK|KO)\s*$")
 
     def __init__ (self, command):
         self.data       = []
@@ -601,7 +601,7 @@ class MxConnection (object):
                     if "MX>" in line: # indicator that it is ready to process commands
                         self._st = self._IDLE_RDY
                         break
-
+        time.sleep(0.2)
         if self._st == self._IDLE_RDY:
             self._st = self._BSY
             try:
