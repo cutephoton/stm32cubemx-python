@@ -1,0 +1,34 @@
+{
+    "STM32CubeMX" : {
+        "command" : "/usr/bin/env STM32CubeMX",
+        "arguments" : [],
+        "_comments_" : [
+            "The default configuration presumes it may be able to locate",
+            "the STM32CubeMX automatically on the path. This is unlikely.",
+            "Thus typically you would specify the path like so...",
+
+            {"command" : "/home/fosterb/.local/packages/STM32CubeMX/STM32CubeMX"},
+
+            "Because I have an HDPI screen I typically invoke with the following",
+
+            {"command" : "/usr/bin/java",
+             "arguments" : [
+                 "-Dsun.java2d.uiScale=1", "-jar",
+                 "/home/fosterb/.local/packages/STM32CubeMX/STM32CubeMX"
+            ]},
+
+            "Since you likely aren't using the STM32CUBEMX app as a typical",
+            "application, it's unnecessary."
+        ]
+    },
+    "server" : {
+        "server.socket_port" : 8333,
+        "server.socket_host" : "127.0.0.1",
+        "secret" : "hallfsafsdgadfhsgdretxcfvzdxfzsxd"
+    },
+    "log": {
+        "native.log": false,
+        "native.response": false,
+        "native.exec": false
+    }
+}

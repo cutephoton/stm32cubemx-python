@@ -4,24 +4,21 @@ import argparse
 import json
 import io
 import logging
+from pathlib import Path
+import shutil
 
-__ALL__ = ('Config','ConfigException','DefaultConfigFile','GetBaseConfig')
+__ALL__ = ('Config', 'ServerConfig', 'ConfigException',
+            'ServerConfig')
 Log = logging.getLogger(__name__)
-"""
-prefix = None
-stm32cubemx = None
-if "STM32PATH" in os.environ:
-    prefix = os.environ[STM32CUBEMX]
 
-if "STM32CUBEMX" in os.environ:
-    stm32cubemx = os.environ[STM32CUBEMX]
+DefaultDefinitionFile               = Path(os.path.dirname(__file__), "data", "cmd_db.json")
+DefaultTemplateFile                 = Path(os.path.dirname(__file__), "data", "default_config.json")
+DefaultLocalConfigDirectory         = Path(Path.home(), ".pycubemx")
+DefaultLocalConfigFile              = Path(DefaultLocalConfigDirectory, "config.json")
 """
-
-DefaultConfigFile = os.path.join(os.path.dirname(__file__), "data/cmd_db.json")
-def GetBaseConfig():
-    c = Config ()
-    c.loadFile(DefaultConfigFile, False)
-    return c
+DefaultLocalServerConfigFile        = Path(DefaultLocalConfigDirectory, "server.json")
+DefaultLocalServerDataDirectory     = Path(DefaultLocalConfigDirectory, "server-data")
+"""
 
 def _json_parse_comments (f, *args, **kwargs):
     buf = io.StringIO()
@@ -29,6 +26,7 @@ def _json_parse_comments (f, *args, **kwargs):
         if not i.strip().startswith("//"):
             buf.write(i)
     return json.loads(buf.getvalue())
+
 #see here -- lazy merge!
 #https://stackoverflow.com/questions/7204805/dictionaries-of-dictionaries-merge/7205107
 def _merge_dicts(dict1, dict2):
@@ -61,7 +59,7 @@ def _get (conf, key, defaultValue = None):
             return defaultValue
     return top
 
-def _set (conf, key, value):
+def _set (conf, key, value, onlyIfUndefined=False):
     s = key.split('::') if isinstance(key, str) else key
     top = conf
     skey = s[-1]
@@ -73,46 +71,35 @@ def _set (conf, key, value):
             top = top[i]
         else:
             raise Exception("Not a dict: " + "::".join(s) + " on " + i)
+    if onlyIfUndefined and skey in top:
+        return
     top [skey] = value
 
 class ConfigException(Exception): pass
-
-class Command (object):
-    def __init__ (self, name, config, parent = None):
-        self.name = name
-        self._config = config
-        self._parent = parent
-    @property
-    def command (self):
-        return _get(self._config, 'command', None)
-    @property
-    def path(self):
-        return os.path.join(self._parent.path, self.command)
-    @property
-    def arguments (self):
-        return tuple(_get(self._config, 'arguments', tuple()))
-    def __str__ (self):
-        b = self.arguments
-        cmd = self.path
-        return "Command({} --> {} {})".format(self.name, cmd, " ".join(b))
 
 class Tool (object):
     def __init__ (self, name, config):
         self.name = name
         self._config = config
 
-    def commands (self):
-        return _buildKVObjectSet(Command, _get(self._config, "commands", {}), parent = self)
-
-    def command (self, cmd):
-        return _buildKVObject(Command, cmd,_get(self._config, ("commands", cmd), {}), parent = self)
+    @property
+    def path(self):
+        return os.path.join(self.path, self.command)
 
     @property
-    def path (self):
-        return _get(self._config, "path", "")
+    def arguments (self):
+        return tuple(_get(self._config, 'arguments', tuple()))
+
+    @property
+    def command (self):
+        return _get(self._config, "command", None)
+
+    @property
+    def valid (self):
+        return self.command is not None
 
     def __str__ (self):
-        return "Tool<" + self.name + " : " + self.path + ">"
+        return "Tool<{self.name}: Valid={self.valid} Command={self.command} Arguments={self.arguments}>".format(self=self)
 
 class VersionDetails (object):
     def __init__ (self, config):
@@ -121,7 +108,55 @@ class VersionDetails (object):
         self.details = config["details"] if "details" in config else "Unknown Details"
     def __str__ (self):
         return "{self.version} by {self.author} - {self.details}".format(self=self)
+
+class ServerConfig (object):
+    def __init__ (self, config):
+        self._config = config
+        _set(self._config, ('server.socket_port',), 8333, onlyIfUndefined=True)
+        _set(self._config, ('server.socket_host',), "127.0.0.1", onlyIfUndefined=True)
+    @property
+    def port (self):
+        return _get(self._config, ('server.socket_port',))
+    @property
+    def host (self):
+        return _get(self._config, ('server.socket_host',))
+    @property
+    def secret (self):
+        return _get(self._config, ('secret',))
+    @property
+    def uri (self):
+        return "http://{self.host}:{self.port}/".format(self=self)
+
+
 class Config (object):
+    LocalConfigFile = str(DefaultLocalConfigFile)
+
+    @classmethod
+    def LocalConfig (cls, configFile = None, nodefaults = False):
+        c = cls ()
+
+        Log.debug ("GetLocalConfig")
+
+        if configFile is None:
+            configFile = DefaultLocalConfigFile
+            if not configFile.exists():
+                Log.info("Copying configuration template...")
+                Log.info("... from: " + str(DefaultTemplateFile))
+                Log.info("... to:   " + str(DefaultLocalConfigFile))
+                os.makedirs(DefaultLocalConfigDirectory, exist_ok=True)
+                shutil.copy(str(DefaultTemplateFile), str(DefaultLocalConfigFile))
+
+        if not nodefaults:
+            Log.debug("Built-in command schema: Loading")
+            c.loadFile(DefaultDefinitionFile, False)
+        else:
+            Log.debug("Built-in command schema: Skipping")
+
+        Log.debug("Loading user config")
+        c.loadFile(configFile)
+
+        return c
+
     def __init__ (self):
         self._config = {}
 
@@ -145,6 +180,7 @@ class Config (object):
 
     def dump (self):
         Log.debug("Configuration:\n" + json.dumps(self._config, indent=2))
+
     def saveFile (self, filename):
         with open(filename, "w") as f:
             json.dump(self._config, f, indent=2)
@@ -162,12 +198,6 @@ class Config (object):
                 return defaultValue
         return top
 
-    """def tool (self, name):
-        t = self._get(('tools',name))
-        if t is not None:
-            return Tool(name, t)
-        raise ConfigException("Tool " +name+ " not found.")"""\
-
     def configureLogger (self, log):
         x = _get(self._config, ("log", log.name), True)
         lvl = logging.DEBUG if x is not False else logging.CRITICAL
@@ -182,14 +212,32 @@ class Config (object):
     def _apiSchema (self, value):
         cube = _set(self._config, ("cube", "schema"), value)
 
-    def tools (self):
-        #if 'tools' not in self._config:
-        #    return tuple()
-        return _buildKVObjectSet(Tool, _get(self._config, "tools")) #[Tool(k, v) for k,v in self._get("tools", {}).items()]
+    @property
+    def server (self):
+        return ServerConfig(_get(self._config, ("server", ), {}))
 
-    def tool (self,name):
-        return _buildKVObject(Tool, name,_get(self._config, ("tools", name), {}))
+    #def tools (self):
+    #    return _buildKVObjectSet(Tool, _get(self._config, "tools"))
+
+    @property
+    def STM32CubeMX (self):
+        return _buildKVObject(Tool, "STM32CubeMX", _get(self._config, ("STM32CubeMX",), {}))
 
     @property
     def commandDbVersionInfo (self):
         return VersionDetails(_get(self._config, ("command_db_version",), {}))
+"""
+class ServerConfig (object):
+    LocalServerData         = str(DefaultLocalServerDataDirectory)
+    @property
+    def serverPort (self):
+        return _get(self._config, ("server","port"), 8333)
+
+    @property
+    def serverBind (self):
+        return _get(self._config, ("server","bind"), ["127.0.0.1"])
+
+    @property
+    def serverDataDir (self):
+        return _get(self._config, ("server","data"), LocalServerData)
+"""
